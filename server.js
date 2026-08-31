@@ -1,13 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 
 dotenv.config({ path: './config/config.env' });
 
+connectDB();
+
 const app = express();
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.status(200).json({ success: true, data: { id: 1 } });
-})
+});
 
 const hospitals = require(`./routes/hospitals`);
 app.use(`/api/v1/hospitals`, hospitals);
